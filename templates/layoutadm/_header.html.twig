@@ -1,0 +1,84 @@
+<div class="nav-right col-6 pull-right right-header p-0">
+		<ul class="nav-menus">
+				{% if app.session.get('multilingv')=='da' %}
+						<li class="language-nav">
+								<div class="translate_wrapper">
+										<div class="current_lang">
+												<div class="lang">
+														<i class="flag-icon flag-icon-{{ app.session.get('presc_lang') }}"></i>
+														<span class="lang-txt">{{ app.session.get('presc_lang')|upper }}</span>
+												</div>
+										</div>
+										<div class="more_lang">
+												{% for l in afisarelang %}
+														<div class="lang" data-value="{{ l.presc }}">
+																<a href={{ app.request.get('_route') }}id_lang={{ l.id }}' style='color:#000; width:150px;'>
+																		<i class="flag-icon flag-icon-{{ l.presc }}"></i>
+																		<span class="lang-txt">{{ l.limba }}<span> ({{ l.presc|upper }})
+                              </span></span></a>
+														</div>
+												{% endfor %}
+										</div>
+						</li>
+				{% endif %}
+				{% if app.session.get('site')=='magazin' %}
+						{% if comnoi %}
+						<li class="cart-nav onhover-dropdown">
+								<div class="cart-box">
+										<i data-feather="shopping-cart"></i> <span class="badge rounded-pill badge-secondary">{{ app.session.get('comenzinoi') }}</span>
+								</div>
+								<ul class="cart-dropdown onhover-show-div">
+												<li>
+														<h6 class="mb-0 f-20">Comenzi noi</h6>
+														<i data-feather="shopping-cart"></i>
+												</li>
+												{% for com in comnoi %}
+														<li class="mt-0">
+																<div class="media">
+																		<div class="media-body">
+																				<span></span> <span>Nr. produse:  | ora: {{ com.ora|date('H:i') }} </span>
+																		</div>
+																</div>
+														</li>
+												{% endfor %}
+												<li><a class="btn btn-block w-100 mb-2 btn-primary view-cart" href="orders">Vezi comenzile</a></li>
+
+								</ul>
+						</li>
+										{% endif %}
+						{% if revnoi %}
+								<li class="onhover-dropdown">
+										<div class="notification-box">
+												<i data-feather="bell"> </i> <span class="badge rounded-pill badge-primary">{{ revnoi }}</span>
+										</div>
+										<ul class="notification-dropdown onhover-show-div">
+												<li><i data-feather="bell"></i>
+														<h6 class="f-18 mb-0">Review-uri noi</h6></li>
+												<li><p><i class="fa fa-circle-o me-3 font-primary"> </i>
+																<a href="review">Vezi review-uri</a></p></li>
+										</ul>
+								</li>
+						{% endif %}
+				{% endif %}
+				<li>
+						<div class="mode"><i class="fa fa-moon-o"></i>
+						</div>
+				</li>
+				<li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"> <i data-feather="maximize"></i></a></li>
+				<li class="profile-nav onhover-dropdown p-0 me-0">
+						<div class="media profile-media">
+								<img class="b-r-10" src="{{ asset('assets/images/user/' ~ avatar ) }}" width="40px">
+								<div class="media-body">
+										<span>Sorin Stancu</span>
+										<p class="mb-0 font-roboto">
+												<i class="middle fa fa-angle-down"></i></p>
+								</div>
+						</div>
+						<ul class="profile-dropdown onhover-show-div">
+								<li><a href="seting_cont"> <i data-feather="settings"></i><span>Settings</span></a></li>
+								<li><a href="{{ path('app_logout') }}"> <i data-feather="log-out"> </i><span>Log out</span></a></li>
+						</ul>
+				</li>
+		</ul>
+</div>
+</div>

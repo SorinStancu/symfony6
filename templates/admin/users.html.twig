@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-md-12 project-list wow BounceInUp" style="visibility: visible; animation-name: bounceInUp;">
+        <div class="card">
+            <div class="row">
+                <H5> CLIENTI</H5>
+                <div class="col-md-6 ">
+                    <ul class="nav nav-tabs border-tab">
+                        <li class="nav-item" style="margin-top:7px;">Nr. clienti: {{ useri.getTotalItemCount }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary-gradien" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Adauga client" data-bs-original-title="" onclick="jQuery('#add').toggle(700)"><i data-feather="plus"></i> Adauga
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+    <div id="basicScenario" class="jsgrid" style="position: relative; height: auto; width: 100%;">
+    <div class="jsgrid-grid-header jsgrid-header-scrollbar">
+    <table class="jsgrid-table">
+    <tr class="jsgrid-header-row">
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center" style="width:50px;">Nr
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center">User
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center">Nume
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center">Telefon
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center" style="width:300px;">Email
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center" style="width:150px;">Comenzi
+        </th>
+        <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" align="center" style="width:150px;">Optiuni
+        </th>
+    </tr>
+    <tr class='jsgrid-header-row'>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center' >
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center'>
+            <form action='' method='get'>
+                <input type='text' name='user' class='form-control' value="<?= $_GET['user'] ?>" autocomplete='off' onsubmit='this.form.submit();' placeholder='text->enter' style='margin-top: 15px;'>
+            </form>
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center'>
+            <form action='' method='get'>
+                <input type='text' name='nume' class='form-control' value="<?= $_GET['nume'] ?>" autocomplete='off' onsubmit='this.form.submit();' placeholder='text->enter' style='margin-top: 15px;'>
+            </form>
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center'>
+            <form action='' method='get'>
+                <input type='text' name='tel' class='form-control' value="<?= $_GET['tel'] ?>" autocomplete='off' onsubmit='this.form.submit();' placeholder='text->enter' style='margin-top: 15px;'>
+            </form>
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center' >
+            <form action='' method='get'>
+                <input type='text' name='email' class='form-control' value="<?= $_GET['email'] ?>" autocomplete='off' onsubmit='this.form.submit();' placeholder='text->enter' style='margin-top: 15px;'>
+            </form>
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center' >
+        </th>
+        <th class='jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable' align='center' >
+            <a href="users.php" class="btn btn-light">Resetare</a>
+        </th>
+    </tr>
+        {% set key = 1 %}
+    {% for us in useri %}     {#{{ dump(us) }}#}
+        <tr class="jsgrid-{% if key % 2 %}alt-{%  endif %}row wow bounceInDown">
+            <td class="jsgrid-cell jsgrid-align-center"  style="width:50px;">{{ loop.index }}</td>
+            <td class="jsgrid-cell jsgrid-align-center" >{{ us.user }} </td>
+            <td class="jsgrid-cell jsgrid-align-center" >
+                <button data-bs-target="#nume{{ us.id }}" type="button" data-bs-toggle="modal" data-bs-original-title="" title="Vezi detalii comanda" style="padding: 10px;color:#D18AFC; border: none;  ">
+                    <i class="fa fa-user"></i> {{ us.nume|capitalize }}
+                </button>
+                <div class="modal fade" id="nume{{ us.id }}" tabindex="-1" aria-labelledby="nume" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nume: {{ us.nume }}</h5>
+                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                            </div>
+                            <div class="modal-body" >
+                                <p>Telefon: {{ us.tel }}</p>
+                                <p>Email: {{ us.mail }}</p>
+                                <p>Data inregistrare: {#{{ us.data }}#}</p>
+                                <HR>
+                                <div class='card-body'>
+                                    <div class='tab-content' id='pills-icontabContent'>
+                                        {#<? $sqlx = "SELECT * FROM `orders` WHERE `idu`='" . $r['id'] . "' order by id desc  ";
+                                  $nr_rez = $pdo->query("SELECT COUNT(*) FROM orders WHERE `idu`='" . $r['id'] . "' ")->fetchColumn();
+                                        if($nr_rez){
+                                        foreach($pdo->query($sqlx) as $row){
+                                        $status_us = $pdo->query("SELECT * FROM `status` WHERE `id`='" . $row['id_stare'] . "'")->fetch();
+                                        $suma_us = $pdo->query("SELECT SUM(total) as suma FROM `cart` WHERE `ido`='" . $row['id'] . "'")->fetch();
+                                        ?>
+                                        <p>Comanda : <?= $classdata->schimba_data($row['data']) ?>
+                                            ; suma:<?= $suma_us['suma'] ?> lei ; status: <?= $status_us['status'] ?></p>
+                                        <? }
+                                  }
+                                  else{
+                                    ?>
+                                        Nu exista comenzi.
+                                        <? } ?> #}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" data-bs-original-title="" title=""><i class='icofont icofont-close'></i> Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="jsgrid-cell jsgrid-align-center" ><span style="user-select: all;">{{ us.tel }}</span></td>
+            <td class="jsgrid-cell jsgrid-align-center"  style="width:300px;"><span style='user-select: all;'>{{ us.mail }}</span></td>
+            <td class="jsgrid-cell jsgrid-align-center"  style="width:150px;">{{ us.orders.count }}</td>
+            <td class="jsgrid-cell jsgrid-align-center"  style="width:100px;">
+                <form action="" style="float: left; margin-right:10px;margin-left:10px;">
+                    <input type="hidden" name="edit" value="ok">
+                    <button class="jsgrid-button jsgrid-edit-button" type="submit" name="id" value="{{ us.id }}" title="Modifica user"></button>
+                </form>
+                <form action='' style='float: left;'>
+                    <button class="jsgrid-button jsgrid-delete-button" value="{{ us.id }}" type="submit" name="delid" title="Elimina user" data-bs-original-title="" data-bs-toggle="modal" onclick="return cfsterg()"></button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+    </div>
+    </div>
+    {{ knp_pagination_render(useri)  }}
+
+{% endblock %}

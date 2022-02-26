@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="card" style="padding: 10px;">
+		<div id="basicScenario" class="jsgrid" style="position: relative; height: auto; width: 100%;">
+			<div class="jsgrid-grid-header jsgrid-header-scrollbar">
+				<table class="jsgrid-table">
+					<tr class="jsgrid-header-row">
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 30px;">Nr.</th>
+						<!-- <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Nr.<br> comanda
+						 </th>-->
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 100px;">Nume</th>
+						<? if (!preg_match("/Mobile/", $_SERVER['HTTP_USER_AGENT']) && !preg_match("/Android/", $_SERVER['HTTP_USER_AGENT'])) { ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 75px;">Telefon</th>
+						<? } ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 75px;">Plata</th>
+						<? if (!preg_match("/Mobile/", $_SERVER['HTTP_USER_AGENT']) && !preg_match("/Android/", $_SERVER['HTTP_USER_AGENT'])) { ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Localitate</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Suma</th>
+						<? } ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 80px;">Status</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Data</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Nr. Com.</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Livrare</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">Factura</th>
+					</tr>
+					<tr class="jsgrid-header-row">
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 30px;"></th>
+						<!-- <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 100px;">
+
+							 <input type="text" name="nc" class="form-control" autocomplete="off">
+
+						 </th>-->
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 100px;">
+							<form action="" method="get">
+								<input type="text" name="nume" class="form-control" value="" autocomplete="off" onsubmit="this.form.submit();" placeholder="text->enter" style='margin-top: 15px;'>
+							</form>
+						</th>
+						<? } ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 75px;">
+							<form action='' method='get'>
+								<input type="text" name="telefon" value="" class="form-control" onsubmit='this.form.submit();' autocomplete="off" placeholder='text->enter' style="margin-top: 15px;">
+							</form>
+						</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">
+							<select name="plata" onchange="window.location='orders.php?plata='+this.options[this.selectedIndex].value" style="color:#51bb25'; border-color:#51bb25; padding:30px; width:200px; border-radius:.25rem;margin:10px; " class="form-select form-control-primary">
+								<option>Selecteaza</option>
+								<option value="ramburs">ramburs</option>
+								<option value="op">op</option>
+							</select>
+						</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;"></th>
+						<? } ?>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 80px;"></th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;">
+							<select name="id_stare" class="form-select form-control-primary" style="width:170px; padding-top:5px;margin:0px;padding-right:0px;">
+								<option>Selecteaza</option>
+								{% for s in statusuri %}
+									<option value="{{ s.id }}">{{ s.presc }} ({{ s.status }})</option>
+								{% endfor %}
+							</select>
+						</th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;"></th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;"></th>
+						<th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 50px;"></th>
+					</tr>
+						{% set verifdata = [] %}
+						{% for key, com in comenzigrup %}
+								{% if com.data|date('d-m-Y') not in verifdata %}  {#{{ dump(com) }}#}
+								<tr class="jsgrid-cell wow bounceInDown">
+									<td colspan="11" style="background-color: #e5e5e5; padding: 15px;"
+									>{{ com.data|date('d-m-Y') }} </td>
+								</tr>
+							{% set verifdata = verifdata|merge([com.data|date('d-m-Y')]) %}
+						{% endif %}
+
+						<tr class="jsgrid-{% if key % 2 %}alt-{%  endif %}row wow bounceInDown">
+							<td class="jsgrid-cell jsgrid-align-center"></td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">
+								<button data-bs-target="#nume{{ com.id }}" type="button" data-bs-toggle="modal" data-bs-original-title="" title="Vezi detalii comanda" style="padding: 10px;color:#D18AFC; border: none;  "> {{ com.user.nume|capitalize }}
+									<i class="fa fa-user"></i></button>
+								<div class="modal fade" id="nume{{ com.id }}" tabindex="-1" aria-labelledby="nume" style="display: none;" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Nume: <?= $user['nume'] ?></h5>
+												<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+											</div>
+											<div class="modal-body" align="left">
+												<p>Telefon: <?= $user['tel'] ?></p>
+												<p>Email: <?= $user['mail'] ?></p>
+												<p>Data inregistrare: <?= $classdata->schimba_data($user['data']) ?></p>
+												<HR>
+												<h5 class="modal-title">Comenzi anterioare</h5>
+											</div>
+											<div class="modal-footer">
+												<button class="btn btn-secondary" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">
+									<span style='-webkit-user-select: all; -moz-user-select: all;  -ms-user-select:user-select: all;'>{{ com.user.tel }}</span></td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 75px;">{{ com.plata }}</td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 75px;"></td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 50px;"><font color="#ccc">lei</font></td>
+							<? } ?>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 80px;">
+								<select name="id_stare" class="form-select form-control-primary" style="text-align:left;width:170px; padding-top:5px; color:{% if com.idstare == 12 %} #098C28;{% elseif com.idstare == 11 %} red; {% elseif com.idstare == 5 %} #FFF;{% endif %} margin-right:0px;">
+									{% for s in statusuri %}
+										<option value="{{ s.id }}" {% if com.idstare == s.id %} selected {% endif %}>{{ s.presc }} ({{ s.status }})</option>
+									{% endfor %}
+								</select>
+							</td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 50px;
+">
+									{{ com.ora|date('Y-m-d') }} <br> {{ com.ora|date('H:i:s') }} </td>
+							<td class='jsgrid-cell jsgrid-align-center' style='width: 50px;
+'
+							>{{ com.id }}</td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
+								<button data-bs-target="#livrare<?= $r['id'] ?>" type="button" data-bs-toggle="modal" data-bs-original-title="" title="Vezi detalii comanda" style="padding: 10px;color:#D18AFC; border: none;  ">
+									<i class="fa fa-automobile"></i>&nbsp;Livrare
+								</button>
+								<div class="modal fade" id="livrare<?= $r['id'] ?>" tabindex="-1" aria-labelledby="livrare" style="display: none;" aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Livrare: <?= $adress['livrare'] ?></h5>
+												<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+											</div>
+											<div class="modal-body" align="left">
+												<p>Nr.comanda: <span style='user-select: text;'><?= $r['id'] ?></span></p>
+												<p>Nume/Firma: <span style='user-select: text;'><?= $user['nume'] ?></span></p>
+												<p>Telefon: <span style='user-select: text;'><?= $user['tel'] ?></span></p>
+												<p>Email: <span style='user-select: text;'><?= $user['mail'] ?></span></p>
+												<p>CNP/com.I.F.: <span style='user-select: text;'><?= $adress['cnp'] ?></span></p>
+												<p>Serie C.I./Nr.Reg.Com.: <span style='user-select: text;'><?= $adress['serie'] ?></span></p>
+												<p>Judet: <span style='user-select: text;'><?= $adress['judet'] ?></span></p>
+												<p>Localitate: <span style='user-select: text;'><?= $adress['loc'] ?></span></p>
+												<p>Adresa:<span style='user-select: text;'> <?= $adress['adresa'] ?></span></p>
+												<p>Alte informatii: <span style='user-select: text;'><?= $adress['detalii'] ?></span></p>
+											</div>
+											<div class="modal-footer">
+												<button class="btn btn-secondary" type="button" data-bs-dismiss="modal" data-bs-original-title="" title="">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="jsgrid-cell jsgrid-align-center" style="width: 50px;">
+								<div class="btn btn-light" style="padding:10px;">
+									<a href="../pdf/pdf.php?Facturafx=<?=$classsetari->setari['idprod'] . $r['id'] ?>" target="_blank"
+									><i class="fa fa-file-pdf-o"></i>&nbsp;PDF</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
+
+				</table>
+			</div>
+		</div>
+		{{ knp_pagination_render(comenzigrup) }}
+	</div>
+
+
+{% endblock %}

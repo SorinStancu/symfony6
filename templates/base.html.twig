@@ -1,0 +1,53 @@
+<html>
+{{ include("layoutadm/head.html.twig") }}
+{% block stylesheets %}
+
+{% endblock %}
+<body>
+
+{#<div class="loader-wrapper">#}
+{#    <div class="loader-index"><span></span></div>#}
+{#    <svg><defs></defs><filter id="goo">#}
+{#            <fegaussianblur in="SourceGraphic" stddeviation="11" result="blur"></fegaussianblur>#}
+
+{#            <fecolormatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"></fecolormatrix>#}
+
+{#        </filter>#}
+{#    </svg>#}
+{#</div>#}
+<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+
+<div class="page-wrapper horizontal-wrapper enterprice-type advance-layout" id="pageWrapper">
+
+    {{ include("layoutadm/header.html.twig") }}
+
+    <div class="page-body-wrapper">
+        {{ include("layoutadm/menu.html.twig") }}
+        <div class="page-body">
+            <div class="container-fluid">
+                    <div class="row" style="padding-top: 20px;">
+                        {% block body %}
+
+                        {% endblock %}
+                    </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 footer-copyright text-center"><p class="mb-0">
+                            <a href="https://www.selectoffice.ro" target="_blank">selectoffice.ro</a></p></div>
+                </div>
+            </div>
+        </footer>
+
+    </div></div>
+{{ include("layoutadm/footer.html.twig") }}
+{% block javascripts %}
+
+{% endblock %}
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+</body>
+</html>

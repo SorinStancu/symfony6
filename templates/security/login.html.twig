@@ -1,0 +1,121 @@
+<html>
+<title>Admin</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<meta name="robots" content="noindex,nofollow">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+<link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+
+<link rel="stylesheet"
+
+        href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap">
+
+<link rel="stylesheet"
+
+        href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/icofont.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/themify.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/flag-icon.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/feather-icon.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/scrollbar.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/chartist.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/date-picker.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+
+<link rel="stylesheet" id="color" href="{{ asset('assets/css/color-1.css') }}" media="screen">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/jsgrid.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/range-slider.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/photoswipe.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/owlcarousel.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/prism.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/daterange-picker.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/jkanban.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
+<body>
+<div class="container-fluid p-0">
+
+    <div class="row m-0">
+
+        <div class="col-12 p-0">
+
+            <div class="login-card">
+
+                <div>
+
+                    <div class="login-main">
+
+                        <form method="post" class="theme-form">
+                            <h1 class="h3 mb-3 font-weight-normal">Login administrare</h1>
+                            {% if error %}   {{  dump(error) }}
+                                <div class="alert-danger" style="padding:10px;">
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    user {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            {% endif %}
+                            <label for="inputEmail">User</label>
+                            <input type="text" value="{{ last_username }}" name="username" id="inputUsername"  class="form-control"  required autofocus>
+                            <label for="inputPassword" style="margin-top:5px;">Parola</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <div class="checkbox mb-3" style="margin-left:20px;margin-top:10px;">
+                                <label>
+                                    <input type="checkbox" name="_remember_me" checked> Retine datele de logare
+                                </label>
+                            </div>
+                            <button class="btn btn-primary btn-block w-100" type="submit">Logare</button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body></html>

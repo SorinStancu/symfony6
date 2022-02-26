@@ -1,0 +1,3 @@
+{% for p in pagini %}
+		<li><a href="{% if p.name == 'Contact' %}{{ path('contact') }}{% else %}{{ path('pagina',{'id':p.id}) }} {% endif %}">{{ p.name }}</a></li>
+{% endfor %}

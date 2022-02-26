@@ -1,0 +1,34 @@
+<div class="page-header">
+    <div class="header-wrapper row m-0">
+        <div class="header-logo-wrapper col-auto p-0">
+            <div class="logo-wrapper">
+                <a href="/"><img class="img-fluid" src="{{ asset('assets/images/logo/logo.png') }}" alt="admin"></a>
+            </div>
+            <div class="toggle-sidebar">
+                <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
+            </div>
+        </div>
+        <div class="left-header col horizontal-wrapper ps-0">
+            <ul class="horizontal-menu">
+                <li class="mega-menu outside">
+                    <a class="nav-link" href="home"> <i data-feather="home"></i></a></li>
+                {% if app.session.get('site')=='prezentare' %}
+                    <li class="level-menu outside"><a class="nav-link" href="pages"> <i data-feather="file-text"></i><span>Pagini</span></a>
+                    </li>
+                {% elseif app.session.get('site')=='magazin' %}
+                    <li class="level-menu outside"><a class="nav-link" href="{{ path('orders') }}"> <i data-feather="shopping-bag"></i><span>Comenzi</span></a>
+                    </li>
+                    <li class="level-menu outside"><a class="nav-link" href="{#{{ path('products') }}#}" style="background-color: #fdf3bf"> <i data-feather="gift"></i><span>Produse</span></a>
+                    </li>
+                    <li class="level-menu outside"><a class="nav-link" href="{{ path('users') }}" style="background-color:#e9c8fd">
+                            <i data-feather="users"></i><span>Clienti </span></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        {{ render_esi(controller(
+            'App\\Controller\\DefaultController::header'
+        )) }}
+
+</div>

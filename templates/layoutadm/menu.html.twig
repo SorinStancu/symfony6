@@ -1,0 +1,266 @@
+<div class="sidebar-wrapper">
+
+    <div>
+
+        <div class="logo-wrapper">
+
+            <a href="home"><img class="img-fluid for-light" src="assets/images/logo/logo.png" alt=""><img class="img-fluid for-dark" src="assets/images/logo/logo_dark.png" alt=""></a>
+
+            <div class="back-btn">
+
+                <i class="fa fa-angle-left"></i>
+
+            </div>
+
+            <div class="toggle-sidebar">
+
+                <i class="status_toggle middle sidebar-toggle" data-feather="grid"></i>
+
+            </div>
+
+        </div>
+
+        <div class="logo-icon-wrapper">
+
+            <a href="home"><img class="img-fluid" src="assets/images/logo/logo-icon.png" alt=""></a>
+
+        </div>
+
+        <nav class="sidebar-main">
+
+            <div class="left-arrow" id="left-arrow">
+
+                <i data-feather="arrow-left"></i>
+
+            </div>
+
+            <div id="sidebar-menu">
+
+                <ul class="sidebar-links" id="simple-bar">
+
+                    <li class="back-btn">
+                        <a href="home"><img class="img-fluid" src="assets/images/logo/logo-icon.png" alt=""></a>
+
+                        <div class="mobile-back text-end">
+
+                            <span>back</span>
+                            <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+
+                        </div>
+                    </li>
+                    {% if app.session.get('site')=='magazin' %}
+
+                    <li class="sidebar-main-title">
+
+                        <div>
+
+                            <h6>Shop</h6>
+
+                            <p>comenzi, produse, clienti</p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#"><i data-feather="shopping-bag"></i><span>Comenzi</span></a>
+
+                        <ul class="sidebar-submenu">
+
+                            <li class="{#{% if pagina.name == 'comenzi' %} active {% endif %}#}">
+                                <a href="orders?vezistatus=toate">Toate comenzile</a></li>
+
+                            <li class="{#{% if pagina.name == 'statusc' %} active {% endif %}#}">
+                                <a href="status_com">Statusuri</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#"><i data-feather="gift"></i><span>Produse</span></a>
+
+                        <ul class="sidebar-submenu">
+
+                            <li class="{#{% if pagina.name == 'produse' %} active {% endif %}#}">
+                                <a href="products">Produse</a></li>
+
+                            <li class="{#{% if pagina.name == 'categorii' %} active {% endif %}#}">
+                                <a href="categories">Categorii</a></li>
+
+                            <li class="{#{% if pagina.name == 'pachete' %} active {% endif %}#}">
+                                <a href="packs">Pachete</a></li>
+
+                            <li class="{#{% if pagina.name == 'promotii' %} active {% endif %}#}">
+                                <a href="home_products">Promotii</a></li>
+
+                            <li class="{#{% if pagina.name == 'filtre' %} active {% endif %}#}">
+                                <a href="filtre">Filtre</a></li>
+
+                            <li class="{#{% if pagina.name == 'vouchere' %} active {% endif %}#}">
+                                <a href="vouchere">Vouchere</a></li>
+
+                            <li class="{#{% if pagina.name == 'producatori' %} active {% endif %}#}">
+                                <a href="producatori">Producatori</a></li>
+
+                            <li class="{#{% if pagina.name == 'statusp' %} active {% endif %}#}">
+                                <a href='status_prod'>Statusuri</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#"><i data-feather="users"></i><span>Clienti</span></a>
+
+                        <ul class="sidebar-submenu">
+
+                            <li class="{#{% if pagina.name == 'clienti' %} active {% endif %}#}">
+                                <a href="users">Clienti</a></li>
+
+                            <li class="{#{% if pagina.name == 'review' %} active {% endif %}#}">
+                                <a href="{{ path('review') }}">Review-uri</a></li>
+
+                        </ul>
+                    </li>
+
+                    {% endif %}
+
+                    <li class="sidebar-main-title">
+
+                        <div>
+
+                            <h6>Module site</h6>
+
+                            <p>pagini statice, dinamice</p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <i data-feather="file-text"></i><span>Pagini</span></a>
+
+                        <ul class="sidebar-submenu">
+
+                            {{ render(controller(
+                                'App\\Controller\\DefaultController::index'
+                            )) }}
+
+                            {% if app.session.get('site')=='magazin' %}
+                            <li class="{#{% if pagina.name == 'bannere' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="admin/banner">Bannere</a></li>
+
+                            {% if app.session.get('galerie')=='da' %}
+                            <li class="{#{% if pagina.name == 'galerie' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="galerie_foto">
+                                    Galerie foto</a></li>
+                            {% endif %}
+                            {% if app.session.get('news')=='da' %}
+                            <li class="{#{% if pagina.name == 'news' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="news">
+                                    Stiri</a></li>
+                            {% endif %}
+                            {% endif %}
+
+                        </ul>
+                    </li>
+
+                    {% if app.session.get('site')=='magazin' %}
+
+                    <li class="sidebar-list {#{% if pagina.name == 'bannere' %} active {% endif %}#}">
+                        <a class="sidebar-link sidebar-title link-nav " href="admin/banner">
+                            <i data-feather="image"> </i><span>bannere</span></a>
+                    </li>
+
+                    {% if app.session.get('galerie')=='da' %}
+                    <li class="sidebar-list {#{% if pagina.name == 'galerie' %} active {% endif %}#}">
+                        <a class="sidebar-link sidebar-title link-nav" href="galerie_foto">
+                            <i data-feather="camera"> </i><span>Galerie foto</span></a>
+                    </li>
+
+                    {% if app.session.get('news')=='da' %}
+
+                    <li class="sidebar-list {#{% if pagina.name == 'news' %} active {% endif %}#}">
+                        <a class="sidebar-link sidebar-title link-nav" href="news">
+                            <i data-feather='refresh-ccw'></i> </i><span>Stiri</span></a>
+                    </li>
+
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+
+                    {% if app.session.get('blog')=='da' %}
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <i data-feather="list"></i><span>Blog</span></a>
+
+                        <ul class="sidebar-submenu">
+                            <li class="{#{% if pagina.name == 'categorii_blog' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="categoriesblog">
+                                    <span>Categorii</span></a>
+                            </li>
+
+                            <li class="{#{% if pagina.name == 'articole_blog' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="newsblog">
+                                    <span>Articole</span></a>
+                            </li>
+
+                            <li class="{#{% if pagina.name == 'comentarii_blog' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="reviewblog">
+                                    <span>Comentarii</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    {% endif %}
+
+                    <li class="sidebar-main-title">
+
+                        <div>
+
+                            <h6>Setari</h6>
+
+                            <p>setari diverse</p>
+
+                        </div>
+
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <i data-feather="users"> </i><span>Setari</span></a>
+
+                        <ul class="sidebar-submenu">
+                            <li class="{#{% if pagina.name == 'useri' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="useri">
+                                    <span>Useri</span></a>
+                            </li>
+
+                            <li class="{#{% if pagina.name == 'mentenanta' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="mentenanta">
+                                    <span>Mentenanta</span></a>
+                            </li>
+
+                            <li class="{#{% if pagina.name == 'site' %} active {% endif %}#}">
+                                <a class="sidebar-link sidebar-title link-nav" href="bk">
+                                    <span>Site</span></a></li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="right-arrow" id="right-arrow">
+                <i data-feather="arrow-right"></i>
+            </div>
+
+        </nav>
+
+    </div>
+
+</div>
