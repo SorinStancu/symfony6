@@ -183,7 +183,7 @@
                     {% if app.session.get('news')=='da' %}
 
                     <li class="sidebar-list {#{% if pagina.name == 'news' %} active {% endif %}#}">
-                        <a class="sidebar-link sidebar-title link-nav" href="news">
+                        <a class="sidebar-link sidebar-title link-nav" href="{{ path('articles') }}">
                             <i data-feather='refresh-ccw'></i> </i><span>Stiri</span></a>
                     </li>
 
