@@ -5,8 +5,8 @@ Encore
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
-    .enableVueLoader()
-
+    // .enableVueLoader()
+    .enableReactPreset()
     /*
      * ENTRY CONFIG
      *

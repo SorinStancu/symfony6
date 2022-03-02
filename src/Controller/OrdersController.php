@@ -24,14 +24,15 @@ class OrdersController extends AbstractController
 	 */
     public function index(OrdersRepository $comenzi,PaginatorInterface $paginator, Request $request, StatusRepository $status,UsersRepository $users): Response
     {
-     
-	    $comenzigrup = $comenzi->afComenzi();
+
+
 	    $comenzigrup = $paginator->paginate(
-		    $comenzigrup, $request->query->getInt('page',1),20
+        $comenzi->afComenzi(),
+        $request->query->getInt('page',1),20
 	    );
-	      
+
 	      $statusuri = $status->afStatus('com');
-	    
+
         return $this->render('admin/orders.html.twig', [
 	        'comenzigrup' => $comenzigrup ,
 	        'statusuri' => $statusuri
