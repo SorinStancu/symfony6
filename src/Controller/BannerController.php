@@ -24,7 +24,7 @@ class BannerController extends AbstractController
     	$ban = $bann->afBanner();
 	    $ban = $paginator->paginate(
 		    $ban,
-		    $request->query->getInt('page',1),30
+		    $request->query->getInt('page',1),100
 	    );
         return $this->render('admin/banner.html.twig', [
             'ban' =>  $ban
