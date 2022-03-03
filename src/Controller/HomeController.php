@@ -20,33 +20,33 @@ class HomeController extends AbstractController
 
 
   /**
-   * @Route("/", name="home")
+   * @Route("/admin/home", name="home")
    * @param Request             $request
-   * @param UsersRepository     $usersRepository
-   * @param ProductsRepository  $productsRepository
-   * @param PaginiRepository    $pagini
+   * @param UsersRepository     $users
+   * @param ProductsRepository  $products
    * @param OrdersRepository    $comenzi
-   * @param ReviewRepository    $rev
    * @return Response
    */
-  public function home(Request $request,OrdersRepository $comenzi, UsersRepository $usersRepository, ProductsRepository $productsRepository ): Response
+  public function home(Request $request,OrdersRepository $comenzi, UsersRepository $users, ProductsRepository $products ): Response
 	  {
     $session = $request->getSession();
 
-    $clienti = count($usersRepository->findAll());
+    $clienti = count($users->findAll());
 
-    $produse = count($productsRepository->findBy([
+    $produse = count($products->findBy([
       'tip'=>'prod',
       'activ'=>'da'
     ]));
 
-
+      $words = ['sky', 'cloud', 'wood', 'rock', 'forest',
+        'mountain', 'breeze'];
 
 
       return $this->render('admin/index.html.twig', [
       'title' => 'Useri',
       'nrproduse' => $produse,
       'nrclienti' => $clienti,
+        'words' => $words,
       'comenzilt' => $comenzi->ComenziLT(),
       'comenzilc' => $comenzi->ComenziLC()
     ]);

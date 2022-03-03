@@ -7,7 +7,7 @@
                         <div class="container-fluid product-wrapper">
                             <div class="product-grid" style="padding-top: 15px;">
                                 <div class="alert alert-success outline alert-dismissible fade show" id='info' style='display: none;' role="alert">
-                                    Extensii: jpg, gif, png;<br> Rezolutie: 870/410 px.<br> Marime: maxim 2 Gb.</p>
+                                    Extensii: jpg, gif, png;<br> Rezolutie: 870/410 px.<br> Marime: maxim 2 Gb.
                                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close" data-bs-original-title="" title=""></button>
                                 </div>
                                 <H5> {% if app.session.get('multilingv')=='da' %}
@@ -148,7 +148,8 @@
                 <div class="card">
                     <div class="product-box ">
                         <div class="product-img">
-                            <img class="img-fluid" src="{{ asset('files/banner/' ~ b.img ) }}" alt="banner" >
+
+                            <img class="img-fluid" src="{{ asset('https://www.westbuy.ro/files/banner/' ~ b.img ) }}" alt="banner" >
                             <div class="product-hover">
                                 <ul>
                                     <li>

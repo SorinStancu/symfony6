@@ -102,6 +102,12 @@
 
         </div>
     </div>
-    <div id="App"></div>
+    <div ref="words" data-words="{{ words|join(',') }}">
+
+    </div>
+
+    <div id="app">
+        <app></app>
+    </div>
 
 {% endblock %}
