@@ -6,7 +6,7 @@ Encore
 
     .enableVueLoader(() => {}, { runtimeCompilerBuild: false })
 
-    .addEntry('app', './assets/js/app.js')
+    .addEntry('app', './src/app.js')
 
     .splitEntryChunks()
 

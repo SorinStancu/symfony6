@@ -27,7 +27,7 @@ class ProductsController extends AbstractController
    * @return Response
    * @throws \Psr\Cache\InvalidArgumentException
    */
-  #[Route('/admin/products', name: 'products')]
+  #[Route('/api/products', name: 'products')]
     public function index(ProductsRepository $produse, PaginatorInterface $paginator, Request $request): Response
     {
 
@@ -46,15 +46,9 @@ class ProductsController extends AbstractController
         $request->query->getInt('page',1),20
       );
 
-//      $cache->deleteItem('produse.grupate');
-
-//      $produsegrup = $paginator->paginate(
-//        $produse->produse(),
-//        $request->query->getInt('page',1),20
-//      );
-
-        return $this->render('admin/products.html.twig', [
-            'produse' => $produsegrup,
-        ]);
+      return $this->json( $produsegrup);
+//        return $this->render('admin/products.html.twig', [
+//            'produse' => $produsegrup,
+//        ]);
     }
 }

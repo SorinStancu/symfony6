@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProductsRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository", repositoryClass=ProductsRepository::class)
  */
 class Products
 {
@@ -239,6 +240,7 @@ class Products
     private $stoc;
 
     /**
+     * @Assert\DateTime()
      * @ORM\Column(type="datetime")
      */
     private $data;
@@ -776,12 +778,12 @@ class Products
         return $this;
     }
 
-    public function getData(): ?string
+    public function getData(): ?\DateTimeInterface
     {
         return $this->data;
     }
 
-    public function setData(string $data): self
+    public function setData(\DateTimeInterface $data): self
     {
         $this->data = $data;
 

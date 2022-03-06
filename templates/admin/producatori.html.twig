@@ -1,7 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-   {# {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}#}
+   <div class="col-md-12 project-list wow BounceInUp" style="visibility: visible; animation-name: bounceInUp;">
+      <div class="card">
+         <div class="row">
+            <H5> Producatori</H5>
+            <div class="col-md-6 ">
+               <ul class="nav nav-tabs border-tab">
+                  <li class="nav-item" style="margin-top:7px;">Nr. producatori: {#{{ useri.getTotalItemCount }}#}</li>
+               </ul>
+            </div>
+            <div class="col-md-6">
+               <button class="btn btn-primary-gradien" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Adauga client" data-bs-original-title="" onclick="jQuery('#add').toggle(700)"><i data-feather="plus"></i> Adauga
+               </button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div id="app">
+      <app></app>
+   </div>
 {% endblock %}
