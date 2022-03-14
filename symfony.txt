@@ -1,0 +1,62 @@
+initializare, vendor
+
+https://symfony.com/doc/current/setup.html
+
+composer require symfony/web-server-bundle --dev
+composer require webapp
+symfony server:start
+php -S localhost:8000
+
+composer require symfony/asset
+composer require encore
+
+paginatie
+composer require knplabs/knp-paginator-bundle
+
+php bin/console make:entity
+php bin/console make:controller ProductController
+
+TWIG
+
+{{ path('review') }}
+
+API
+composer require api
+
+# refresh cache
+php bin/console cache:clear --no-warmup --env=dev
+php bin/console cache:warmup --env=dev
+
+MIGRARE
+composer require doctrine/doctrine-migrations-bundle
+
+php bin/console doctrine:migrations:diff
+
+VUE
+
+https://zetcode.com/symfony/vue/
+npm install vue-router
+npm i --save axios
+
+API
+https://www.web-hints.com/blog/how-to-make-an-api-with-symfony
+composer require friendsofsymfony/rest-bundle
+composer require jms/serializer-bundle
+bin/console cache:clear
+
+CACHE
+
+$cache = new FilesystemAdapter();
+
+      $products = $cache->getItem('produse.grupate');
+      if (!$products->isHit()) {
+
+        $products->set($produse->produse());
+
+        $cache->save($products);
+      }
+
+      $produsegrup = $paginator->paginate(
+        $products->get(),
+        $request->query->getInt('page',1),20
+      );
